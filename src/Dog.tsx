@@ -1,0 +1,1 @@
+export const Dog = () => <div>🐶</div>;
