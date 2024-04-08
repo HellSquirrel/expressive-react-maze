@@ -1,6 +1,6 @@
 import { fieldSize, maxWallLength, minWallLength } from './contstatns'
 import { parrotsToPixels } from './units'
-import { useCallback, useState } from 'react'
+import { useCallback, useState, useRef } from 'react'
 import styles from './Maze.module.css'
 import { Dog } from './Dog'
 
@@ -22,6 +22,39 @@ const generateNewWall = (): Wall => {
     }
 }
 
+type Point = {
+    x: number
+    y: number
+}
+const generatePathAroundWalls = (walls: Wall[], start: Point, end: Point): Point[] => {
+    const path = [start]
+    const reversedWalls = walls.slice().reverse();
+    let currentY = start.y;
+    path.push({...start})
+
+    while(reversedWalls.length) {
+        const wall = reversedWalls.pop() as Wall
+        currentY ++;
+
+        if (wall.width === 0) {
+            continue
+        }
+
+        if (wall.left === 0) {
+            path.push({ x: wall.width + 0.5, y: currentY })
+        } else {
+            path.push({ x: 0, y: currentY })
+        }
+    }
+
+    path.push(end)
+    return path
+}
+
+const generateKeyframes = (path: Point[]) => path.map(({ x, y }) => ({
+    transform: `translate(${parrotsToPixels(x)}px, ${parrotsToPixels(y)}px)`
+}))
+
 export const Maze = () => {
     const size = parrotsToPixels(fieldSize)
     const [walls, setWalls] = useState<Wall[]>(
@@ -30,6 +63,8 @@ export const Maze = () => {
             width: 0,
         }))
     )
+
+    const dogRef = useRef<HTMLDivElement | null>(null);
 
     const toggleWall = useCallback((mazeRow: number) => {
         setWalls((walls) =>
@@ -49,9 +84,21 @@ export const Maze = () => {
         )
     }, [])
 
+    const getBall = useCallback(() => {
+        const start = { x: 0, y: 0 } // 🐶
+        const end = { x: 0, y: fieldSize + 1 } // 🎾
+        const path = generatePathAroundWalls(walls, start, end)
+        dogRef.current?.animate(generateKeyframes(path), {
+            duration: 3000,
+            easing: 'linear',
+            fill: 'forwards',
+        })
+    }, [walls])
+
     return (
         <>
-            <Dog /> {/* 🐶 */}
+            <button onClick={getBall}>Апорт!</button>
+            <Dog ref={dogRef} /> {/* 🐶 */}
             <div
                 style={{
                     width: size,
