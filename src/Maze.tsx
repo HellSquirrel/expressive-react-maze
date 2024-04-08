@@ -58,7 +58,7 @@ const generateKeyframes = (path: Point[]) => path.map(({ x, y }) => ({
 export const Maze = () => {
     const size = parrotsToPixels(fieldSize)
     const [walls, setWalls] = useState<Wall[]>(
-        Array.from({ length: fieldSize }, () => ({
+        () => Array.from({ length: fieldSize }, () => ({
             left: 0,
             width: 0,
         }))
