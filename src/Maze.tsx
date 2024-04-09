@@ -102,7 +102,7 @@ export const Maze = () => {
 
   return (
     <>
-      <button onClick={getBall}>Апорт!</button>
+      <button onClick={getBall} className={styles.button}>Апорт!</button>
       <Dog ref={dogRef} /> {/* 🐶 */}
       <div
         style={{
@@ -115,7 +115,7 @@ export const Maze = () => {
           <button
             key={i}
             style={{ height: parrotsToPixels(1) }}
-            className={styles.button}
+            className={styles.buttonField}
             onClick={() => toggleWall(i)}
           >
             <span

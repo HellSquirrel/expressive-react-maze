@@ -1,10 +1,10 @@
 .maze {
-  border: '1px solid brown';
+  border: '1px solid white';
   display: flex;
   flex-direction: column;
 }
 
-.button {
+.buttonField {
   background-color: transparent;
   border: none;
   cursor: pointer;
@@ -16,12 +16,45 @@
   padding: 0;
 
   &:hover {
-    background-color: #f0f0f0;
+    background-color: #c9c9c94c;
   }
 }
 
 .wall {
-  background-color: black;
+  background-color: #fff;
   height: 2px;
   position: relative;
+}
+
+
+.button {
+  display: block;
+  position: absolute;
+  left: calc(100% + 20px);
+  min-width: 210px;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  padding: 9px 15px;
+  color: #000000;
+  font-size: 18px;
+  font-weight: 300;
+  font-family: inherit;
+  transition: background-color 0.2s linear;
+  background-color: #FFD829;
+}
+
+.button:hover {
+  background-color: #FFFFFF;
+  cursor: pointer;
+  transition: background-color 0.2s linear;
+}
+
+.button:focus-visible {
+  border: 2px solid #FFFFFF;
+  outline: none;
+}
+
+.button:focus {
+  border: 2px solid #FFFFFF;
+  outline: none;
 }

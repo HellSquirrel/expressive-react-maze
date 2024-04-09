@@ -1,7 +1,10 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react'
+import styles from './Rectangle.module.css'
 
 type Props = {
-    children: ReactNode;
+  children: ReactNode
 }
 
-export const Rectangle = ({ children }: Props) => <div style={{border: "1px solid brown" }}>{children}</div>;
+export const Rectangle = ({ children }: Props) => (
+  <div className={styles.rect}>{children}</div>
+)
