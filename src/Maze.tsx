@@ -91,7 +91,7 @@ export const Maze = () => {
 
   const getBall = useCallback(() => {
     const start = { x: 0, y: 0 } // 🐶
-    const end = { x: 0, y: fieldSize + 1 } // 🎾
+    const end = { x: 0, y: fieldSize } // 🎾
     const path = generatePathAroundWalls(walls, start, end)
     dogRef.current?.animate(generateKeyframes(path), {
       duration: 3000,
@@ -102,32 +102,37 @@ export const Maze = () => {
 
   return (
     <>
-      <button onClick={getBall} className={styles.button}>Апорт!</button>
-      <Dog ref={dogRef} /> {/* 🐶 */}
-      <div
-        style={{
-          width: size,
-          height: size,
-        }}
-        className={styles.maze}
-      >
-        {Array.from({ length: fieldSize }, (_, i) => (
-          <button
-            key={i}
-            style={{ height: parrotsToPixels(1) }}
-            className={styles.buttonField}
-            onClick={() => toggleWall(i)}
-          >
-            <span
-              key={`${i}`}
-              className={styles.wall}
-              style={{
-                width: parrotsToPixels(walls[i].width),
-                left: parrotsToPixels(walls[i].left),
-              }}
-            />
-          </button>
-        ))}
+      <button onClick={getBall} className={styles.button}>
+        Апорт!
+      </button>
+
+      <div className={styles.container}>
+        <Dog ref={dogRef} /> {/* 🐶 */}
+        <div
+          style={{
+            width: size,
+            height: size,
+          }}
+          className={styles.maze}
+        >
+          {Array.from({ length: fieldSize }, (_, i) => (
+            <button
+              key={i}
+              style={{ height: parrotsToPixels(1) }}
+              className={styles.buttonField}
+              onClick={() => toggleWall(i)}
+            >
+              <span
+                key={`${i}`}
+                className={styles.wall}
+                style={{
+                  width: parrotsToPixels(walls[i].width),
+                  left: parrotsToPixels(walls[i].left),
+                }}
+              />
+            </button>
+          ))}
+        </div>
       </div>
     </>
   )

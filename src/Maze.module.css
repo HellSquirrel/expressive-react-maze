@@ -1,7 +1,14 @@
 .maze {
-  border: '1px solid white';
   display: flex;
   flex-direction: column;
+}
+
+.container {
+  border-radius: 7px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #fff;
+  margin-bottom: -20px;
 }
 
 .buttonField {
@@ -29,8 +36,6 @@
 
 .button {
   display: block;
-  position: absolute;
-  left: calc(100% + 20px);
   min-width: 210px;
   border: 2px solid transparent;
   border-radius: 6px;
@@ -41,6 +46,7 @@
   font-family: inherit;
   transition: background-color 0.2s linear;
   background-color: #FFD829;
+  margin-bottom: 20px;
 }
 
 .button:hover {
